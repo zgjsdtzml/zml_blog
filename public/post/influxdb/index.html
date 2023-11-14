@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.120.4">
+
+  <title>influxdb介绍 &middot; 个人博客</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
+
+  
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="/">colar chicken</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="/contact/"><i class='fa fa-phone fa-fw'></i>Contact</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/zgjsdtzml" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2023. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>influxdb介绍</h1>
+  <h2></h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>13 Nov 2023, 16:29</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="tags/hugo">hugo</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <h2 id="step-1-准备条件">Step 1. 准备条件</h2>
+<ul>
+<li>
+<p>git下载</p>
+</li>
+<li>
+<p>hugo下载</p>
+</li>
+<li>
+<p>go写的</p>
+</li>
+<li>
+<p>官方有OSS单机开源版(官方不支持集群) 。</p>
+</li>
+<li>
+<p>InfluxDB 1.8.x稳定版本</p>
+</li>
+<li>
+<p>InfluxDB 2.0 正式版本，该版本又分为两个系列，云模式的 InfluxDB Cloud 和独立部署的 InfluxDB OSS</p>
+</li>
+<li>
+<p><code> </code>集群版闭源，走商业路线</p>
+</li>
+<li>
+<p>主流版本有1.X 和 2.X 1.X以1.8为主流（https://developer.aliyun.com/article/1265960）</p>
+</li>
+<li>
+<p>2.x的区别</p>
+</li>
+<li>
+<p>1整合了TICK 四个组件，分别对应Telegraf数据采集，InfluxDB数据存储，Chronograf WebUI数据可视化，Kapacitor 告警</p>
+</li>
+<li>
+<p>权限增强，支持token读写数据</p>
+</li>
+<li>
+<p>增加查询语言 Flux语法</p>
+</li>
+<li>
+<p>场景：适合 海量时许数据的<strong>插入</strong>和<strong>查询</strong>的场景（ 注意：删除和更新 支持很少）</p>
+</li>
+<li>
+<p>数据分析，<a href="https://so.csdn.net/so/search?q=IoT&amp;spm=1001.2101.3001.7020">IoT</a>设备数据采集，监控告警</p>
+</li>
+<li>
+<p>性能参考</p>
+</li>
+<li>
+<p>influxdb版本 1.8.10</p>
+</li>
+<li>
+<p>本身机器硬件参数（32G内存  16核CPU标准版）</p>
+</li>
+<li>
+<p><code> </code>数据量、网络带宽</p>
+</li>
+<li>
+<p>mearsurement个数、field个数、tag个数</p>
+</li>
+<li>
+<p>举例来说，基本的服务器配置 32G内存  16核，支持每s几W的写入 没什么问题，正常的查询在1-20ms之内</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Plain Text<!-- raw HTML omitted --><!-- raw HTML omitted -->网上测试参考<!-- raw HTML omitted --><code>    </code>8G内存 2核cpu <!-- raw HTML omitted --><code>    </code>最大的吞吐量为每秒写入60万条数据（3个字段，1个索引）<!-- raw HTML omitted --><code>    </code>读取性能 2ms/条<!-- raw HTML omitted --><!-- raw HTML omitted -->环卫云项目参考<!-- raw HTML omitted --><code>    </code>32G   16核cpu  1000Mbps的带宽<!-- raw HTML omitted --><code>    </code>平均吃  8G内存   600% cpu<!-- raw HTML omitted --><code>    </code>插入 每秒写入  2-3K条数据（50个字段、2-3个索引）</th>
+</tr>
+</thead>
+</table>
+<ul>
+<li>retention policy：数据存储策略（默认策略为autogen）InfluxDB没有删除数据操作，规定数据的保留时间达到清除数据的目的；</li>
+<li>底层时间戳为纳秒， 存储用的是utc时间戳（自1970年1月1日起的相对时间戳）</li>
+<li>支持通过  tz（Asia/China）转化成对应时区的时间</li>
+<li><a href="https://jasper-zhang1.gitbooks.io/influxdb/content/Guide/writing">https://jasper-zhang1.gitbooks.io/influxdb/content/Guide/writing</a>_data.html</li>
+<li>功能性</li>
+<li>HTTP协议的API</li>
+<li>通过数据库本身的聚合函数</li>
+<li>横向对比</li>
+<li>在时序数据库出现之前，存储时序数据这项领域一直被 MongoDB 所占据，在数据量不够高的情况下，InfluxDB 并不会比 MongoDB 或者 ElasticSearch 有更明显的优势</li>
+<li>MySQL、Oracle 等，优点是具有 ACID 的特性，各方面能力都比较均衡。缺点是查询、插入和修改的性能都很一般。</li>
+<li>基于 PostgreSQL 的 TimeScaleDB</li>
+<li>高性能写入、高性能查询、低存储成本、支持海量时间线、弹性</li>
+<li>纵向</li>
+<li>数据库名、存储策略、 measurement （类似 mysql 的表）名与 tag 名一起作为时间轴的标记 (series)，series是存在内存中的，所以不要太多series，影响性能</li>
+</ul>
+<p><strong>2 部署安装</strong></p>
+<p><a href="https://gitee.com/ming-liang-zhou/influxdb/blob/master/influxdb.md">https://gitee.com/ming-liang-zhou/influxdb/blob/master/influxdb.md</a></p>
+<p>默认配置</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Java<!-- raw HTML omitted -->默认influxDB使用以下端口<!-- raw HTML omitted -->8086: 用于客户端和服务端交互的HTTP API<!-- raw HTML omitted -->8088: 用于提供备份和恢复的RPC服务<!-- raw HTML omitted --><!-- raw HTML omitted -->配置文件path <!-- raw HTML omitted --><code> </code>/etc/influxdb/influxdb.conf<!-- raw HTML omitted --><!-- raw HTML omitted -->密码<!-- raw HTML omitted --><code> </code>默认用户名、密码是admin、password<!-- raw HTML omitted --> <!-- raw HTML omitted --> <!-- raw HTML omitted --><code> </code>#influx 进入influx cmd<!-- raw HTML omitted --><code> </code>influx<!-- raw HTML omitted --><code> </code>#添加一个管理员用户<!-- raw HTML omitted --><code> </code>create user &ldquo;root&rdquo; with password &lsquo;root&rsquo; with all privileges<!-- raw HTML omitted --><!-- raw HTML omitted -->默认时间戳<!-- raw HTML omitted --><code>   </code>时间戳默认用的utc, db底层存储的单位是纳秒（等值查询时） 1685943000000000 <!-- raw HTML omitted --><code>   </code>influxDB使用所在主机的本地时间的UTC时间(比国内晚8个小时)来设置timestamp</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">QA:</td>
+</tr>
+</tbody>
+</table>
+<p><code>    </code>1.chronograf的端口8888被占用，修改配置文件后重启</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Java<!-- raw HTML omitted --><!-- raw HTML omitted -->经过测试后，需要修改以下文件中的端口配置才能修改默认端口<!-- raw HTML omitted -->/usr/lib/systemd/system/chronograf.service<!-- raw HTML omitted -->/usr/lib/chronograf/scripts 中的chronograf.service 和init.sh文件中的端口<!-- raw HTML omitted --><!-- raw HTML omitted -->执行更新命令<!-- raw HTML omitted -->systemctl daemon-reload<!-- raw HTML omitted -->重新启动chronograf后可以正常打开<!-- raw HTML omitted -->sudo systemctl start chronograf</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>3 Cmd</strong></td>
+</tr>
+</tbody>
+</table>
+<p>|Java<!-- raw HTML omitted --># service方式<!-- raw HTML omitted --># 启动命令 service influxdb start<!-- raw HTML omitted --># 重启命令 service influxdb restart<!-- raw HTML omitted --># 关闭命令 service influxdb stop<!-- raw HTML omitted --># 查看启动日志 sudo journalctl -u influxdb.service -f<!-- raw HTML omitted --><!-- raw HTML omitted --># systemctl 方式<!-- raw HTML omitted --># 启动命令 sudo systemctl start influxdb<!-- raw HTML omitted --># 关闭命令 sudo systemctl stop  influxdb<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->#查看influxdb进程<!-- raw HTML omitted -->ps -ef|grep influxdb<!-- raw HTML omitted --><!-- raw HTML omitted -->#杀进程<!-- raw HTML omitted -->kill -9 进程id<!-- raw HTML omitted --><!-- raw HTML omitted -->#其他参考<!-- raw HTML omitted -->#启动influxdb<!-- raw HTML omitted -->nohup /mnt/app/mydata/influxdb/influxdb-1.8.10-1/usr/bin/influxd -config /mnt/app/mydata/influxdb/influxdb-1.8.10-1/etc/influxdb/influxdb.conf &raquo;/mnt/app/mydata/influxdb/influxdb-1.8.10-1/var/log/influxdb/nohup.log 2&gt;&amp;1 &amp;<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->#可视化面板相关<!-- raw HTML omitted -->#查看chronograf进程<!-- raw HTML omitted -->ps -ef|grep chronograf<!-- raw HTML omitted -->#杀进程<!-- raw HTML omitted -->kill -9 进程id<!-- raw HTML omitted -->#启动chronograf<!-- raw HTML omitted -->nohup /mnt/app/mydata/influxdb/chronograf-1.9.4-1/usr/bin/chronograf &raquo; /mnt/app/mydata/influxdb/chronograf-1.9.4-1/var/log/chronograf/nohup.log 2&gt;&amp;1 &amp;<!-- raw HTML omitted --><!-- raw HTML omitted -->nohup /tmp/zjf/chronograf-1.9.4-1/usr/bin/chronograf &raquo; /tmp/zjf/chronograf-1.9.4-1/var/log/chronograf/nohup.log 2&gt;&amp;1 &amp;|
+| :- |</p>
+<p>##https://www.metabase.com/docs/latest/installation-and-operation/running-metabase-on-docker</p>
+<p>http://172.16.112.9:3000/  cowa2022..</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Rust<!-- raw HTML omitted -->./influx -ssl -unsafeSsl -username iot -password cowa_iot_influx<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->## <a href="https://docs.influxdata.com/influxdb/v1.8/">https://docs.influxdata.com/influxdb/v1.8/</a><!-- raw HTML omitted -->## <a href="https://jasper-zhang1.gitbooks.io/influxdb/content/">https://jasper-zhang1.gitbooks.io/influxdb/content/</a><!-- raw HTML omitted -->1.创建数据库iot<!-- raw HTML omitted -->create database iot;<!-- raw HTML omitted -->2.使用数据库<!-- raw HTML omitted -->use iot;<!-- raw HTML omitted -->3.查询所有measurement<!-- raw HTML omitted -->show measurements;<!-- raw HTML omitted -->4.创建管理员用户admin<!-- raw HTML omitted -->create user &ldquo;admin&rdquo; with password &lsquo;密码&rsquo; with all privileges;<!-- raw HTML omitted -->5.创建普通用户iot<!-- raw HTML omitted -->create user &ldquo;iot&rdquo; with password &lsquo;密码&rsquo;;<!-- raw HTML omitted -->6.创建普通用户iotRead<!-- raw HTML omitted -->create user &ldquo;iotRead&rdquo; with password &lsquo;密码&rsquo;;<!-- raw HTML omitted -->7.给iot用户授权iot数据库只写权限<!-- raw HTML omitted -->grant write on &ldquo;iot&rdquo; to &ldquo;iot&rdquo;;<!-- raw HTML omitted -->8.给iotRead用户授权iot数据库只读权限<!-- raw HTML omitted -->grant read on &ldquo;iot&rdquo; to &ldquo;iotRead&rdquo;;<!-- raw HTML omitted -->9.创建默认存储策略（rp_30d），数据保留近30天<!-- raw HTML omitted -->create retention policy &ldquo;rp_30d&rdquo; on &ldquo;iot&rdquo; duration 30d replication 1 default;<!-- raw HTML omitted -->10.创建存储策略（rp_10d），数据保留近10天<!-- raw HTML omitted -->create retention policy &ldquo;rp_10d&rdquo; on &ldquo;iot&rdquo; duration 10d replication 1;<!-- raw HTML omitted -->11.创建存储策略（rp_3d），数据保留近3天<!-- raw HTML omitted -->create retention policy &ldquo;rp_3d&rdquo; on &ldquo;telegraf&rdquo; duration 3d replication 1;<!-- raw HTML omitted -->12.连续查询<!-- raw HTML omitted -->#mydb 中新建了一个名为 cq_30m 的连续查询，每三十分钟取一个used字段的平均值，加入 mem_used_30m 表中<!-- raw HTML omitted -->create continuous query cq_30m on mydb begin select mean(used) into men_used_30s from men group by time(30m) end;<!-- raw HTML omitted --># 查看所有的连续查询<!-- raw HTML omitted -->show continuous queries;<!-- raw HTML omitted --># 删除mydb 数据库中的连续查询 cq_30m<!-- raw HTML omitted -->drop continuous query cq_30m  on  mydb<!-- raw HTML omitted -->13.常用函数<!-- raw HTML omitted -->#count()函数 返回一个（field）字段中的非空值的数量<!-- raw HTML omitted -->select count(*) from disk_free<!-- raw HTML omitted --><!-- raw HTML omitted -->#DISTINCT()函数 返回一个字段（field）的唯一值，函数里面是 field 值！<!-- raw HTML omitted -->select distinct(value) from disk_free<!-- raw HTML omitted --><!-- raw HTML omitted -->#MEAN() 函数 返回一个字段（field）中的值的算术平均值（平均值）字段类型必须是长整型或float64<!-- raw HTML omitted -->select mean(value) from disk_free<!-- raw HTML omitted --><!-- raw HTML omitted -->#MEDIAN()函数 从单个字段（field）中的排序值返回中间值（中位数）<!-- raw HTML omitted -->#字段值的类型必须是长整型或float64格式<!-- raw HTML omitted -->select median(value) from disk_free<!-- raw HTML omitted --><!-- raw HTML omitted -->#SPREAD()函数 返回字段的最小值和最大值之间的差值<!-- raw HTML omitted -->select spread(value) from disk_free<!-- raw HTML omitted --><!-- raw HTML omitted -->#SUM()函数 返回一个字段中的所有值的和<!-- raw HTML omitted -->select sum(value) from disk_free<!-- raw HTML omitted --><!-- raw HTML omitted -->#TOP()函数 返回一个字段中最大的N个值<!-- raw HTML omitted -->select top(&ldquo;value&rdquo;, 1) from disk_free<!-- raw HTML omitted --><!-- raw HTML omitted -->#BOTTOM()函数 返回一个字段中最小的N个值<!-- raw HTML omitted -->select bottom(&ldquo;value&rdquo;,2) from disk_free<!-- raw HTML omitted --><!-- raw HTML omitted -->#FIRST()函数 返回一个字段中存活时间最长的值<!-- raw HTML omitted -->select first(value) from disk_free<!-- raw HTML omitted --><!-- raw HTML omitted -->#MAX()函数 返回一个字段中的最大值<!-- raw HTML omitted -->#MIN()函数 返回一个字段中的最小值<!-- raw HTML omitted -->select max(value) from disk_free<!-- raw HTML omitted -->select min(value) from disk_free<!-- raw HTML omitted --><!-- raw HTML omitted -->#PERCENTILE()函数 返回排序值排位为N的百分值<!-- raw HTML omitted -->#value 字段按照不同的 value求百分比，然后取第五位数据。<!-- raw HTML omitted -->select percentile(value,99),value from disk_free<!-- raw HTML omitted --><!-- raw HTML omitted -->PERCENTILE(&lt;field_key&gt;,100)相当于MAX(&lt;field_key&gt;)。<!-- raw HTML omitted -->PERCENTILE(&lt;field_key&gt;, 50)几乎等同于MEDIAN(&lt;field_key&gt;)，但MEDIAN()如果字段键包含偶数个字段值，则该函数返回两个中间值的平均值。<!-- raw HTML omitted -->PERCENTILE(&lt;field_key&gt;,0)不等于MIN(&lt;field_key&gt;)。<!-- raw HTML omitted --><!-- raw HTML omitted -->FAQ：<!-- raw HTML omitted -->1.一个点由measurement名称，tag set和timestamp唯一标识。如果您提交具有相同measurement，tag set和timestamp，但具有不同field set的行协议，则field set将变为旧field set与新field set的合并，并且如果有任何冲突以新field set为准。</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>4 sql操作</strong></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Java<!-- raw HTML omitted -->插入<!-- raw HTML omitted --><code>    </code>tag 字段插入后不能删除，慎重！<!-- raw HTML omitted --><code>    </code>field字段插入后不能删除，慎重！<!-- raw HTML omitted -->    <!-- raw HTML omitted -->    <!-- raw HTML omitted -->delete<!-- raw HTML omitted --><code>    </code>influxdb作为时序数据库的一种，是不提供类似mysql的delete操作，也就是，原则上，你删不了数据，除非删库。 但是，influxdb提供了数据保留策略policies，通过对policies操作，可以达到删除数据的效果(1)。可以根据time和tag进行批量删除，不支持基于field进行批量删除，只能一条一条删除(2)。DELETE SQL删除数据的过程是：根据DELETE SQL中指定的WHERE条件，从tsi/tsl文件中过滤得到满足条件的seriesID，通过查找series index以及series segment文件得到seriesID对应的seriesKey(3)。</th>
+</tr>
+</thead>
+</table>
+<p><strong>基础数据</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Java<!-- raw HTML omitted --><strong>查询数据库大小</strong><!-- raw HTML omitted -->select sum(diskBytes) / 1024 / 1024 /1024 from _internal.&ldquo;monitor&rdquo;.&ldquo;shard&rdquo; where time &gt; now() - 10s<!-- raw HTML omitted -->select sum(diskBytes) / 1024 / 1024 /1024 from _internal.&ldquo;monitor&rdquo;.&ldquo;shard&rdquo; where time &gt; now() - 10s group by &ldquo;database&rdquo;<!-- raw HTML omitted --><!-- raw HTML omitted --><strong>查询记录条数</strong><!-- raw HTML omitted -->SELECT count(*) FROM &ldquo;dataAnalysis&rdquo;.&ldquo;autogen&rdquo;.&ldquo;carGis&rdquo; <!-- raw HTML omitted -->SELECT count(*) FROM &ldquo;dataAnalysis&rdquo;.&ldquo;autogen&rdquo;.&ldquo;carGis&rdquo; where time&gt;&lsquo;2022-09-22 12:00:00&rsquo;  and  time&lt;&lsquo;2022-09-23 00:00:00&rsquo;  tz(&lsquo;Asia/Shanghai&rsquo;)     中国时区&mdash;东八<!-- raw HTML omitted -->SELECT count(*) FROM &ldquo;dataAnalysis&rdquo;.&ldquo;autogen&rdquo;.&ldquo;carGis&rdquo; where time&gt;&lsquo;2022-09-22 12:00:00&rsquo;  and  time&lt;&lsquo;2022-09-23 00:00:00&rsquo;                                    UTC时区&mdash;东零<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><strong>查看数据库的表字段类型</strong><!-- raw HTML omitted --><code>  </code>show  field keys from dataAnalysis<!-- raw HTML omitted --><!-- raw HTML omitted --><strong>设置当前策略为default策略</strong><!-- raw HTML omitted -->ALTER RETENTION POLICY &ldquo;rp_30d&rdquo; ON &ldquo;iot&rdquo; DEFAULT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>query</strong></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>time特殊                 不需要&rsquo;&lsquo;或者&quot;&ldquo;包起来   直接time</li>
+<li>tag和fields              需要&quot;&ldquo;包起来</li>
+</ul>
+<p><code>         </code>&ldquo;tagkey&rdquo;=&lsquo;30.22&rsquo;   等号右边，若为字符串需要写成单引号</p>
+<p><code>         </code>如果写错了，则查询会没有结果</p>
+<ul>
+<li>默认不写 tz(&lsquo;Asia/Shanghai&rsquo;)  表示查询的时间戳为 UTC，通常需要在最后加 tz(&lsquo;Asia/Shanghai&rsquo;)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Java<!-- raw HTML omitted -->查询部分字段<!-- raw HTML omitted -->SELECT &ldquo;latitude&rdquo;, &ldquo;longitude&rdquo; FROM &ldquo;iot&rdquo;.&ldquo;rp_30d&rdquo;.&ldquo;drive&rdquo; WHERE time &gt; :dashboardTime: AND time &lt; :upperDashboardTime: AND &ldquo;carNo&rdquo;=&lsquo;80001&rsquo; AND &ldquo;longitude&rdquo;=&lsquo;NaN&rsquo;<!-- raw HTML omitted --><!-- raw HTML omitted -->查询全部字段<!-- raw HTML omitted -->SELECT * FROM &ldquo;dataAnalysis&rdquo;.&ldquo;autogen&rdquo;.&ldquo;carGis&rdquo; where time&gt;&lsquo;2022-09-22 00:00:00&rsquo;  and  time&lt;&lsquo;2022-09-23 00:00:00&rsquo;  tz(&lsquo;Asia/Shanghai&rsquo;) <!-- raw HTML omitted --><!-- raw HTML omitted -->时区<!-- raw HTML omitted -->utc查询和 tz时区查询<!-- raw HTML omitted --><code> </code>time&gt;&lsquo;2022-09-22 00:00:00&rsquo;  and  time&lt;&lsquo;2022-09-23 00:00:00&rsquo;  <!-- raw HTML omitted --><strong>等价于</strong><!-- raw HTML omitted --><code> </code>time&gt;&lsquo;2022-09-22 08:00:00&rsquo;  and  time&lt;&lsquo;2022-09-23 08:00:00&rsquo;  tz(&lsquo;Asia/Shanghai&rsquo;)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">分页查询</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Insert</strong></p>
+<ul>
+<li>measurement加tags组成了一个series</li>
+<li>tag的key和value都必须是字符串。</li>
+<li><code> </code>fields的key也是必须的，而且是字符串，默认情况下field的value是float类型的。</li>
+<li><code> </code>tag+timestamp的组合&mdash;&gt;唯一定义1条记录，即相同time相同tag的唯一记录</li>
+</ul>
+<p>重复插入后面的会默认覆盖之前的记录</p>
+<p>2  不支持update 重新插入相同记录来达到修改的效果</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Java<!-- raw HTML omitted -->USE &ldquo;zml_test&rdquo;.&ldquo;rp_30d&rdquo;; insert &ldquo;zml_test&rdquo;.&ldquo;rp_30d&rdquo;.&ldquo;aaaaa&rdquo;  &ldquo;carno&rdquo;=&lsquo;123&rsquo; &ldquo;bbb&rdquo;=&lsquo;111&rsquo; <!-- raw HTML omitted --><!-- raw HTML omitted -->USE &ldquo;zml_test&rdquo;.&ldquo;rp_30d&rdquo;; insert &ldquo;zml_test&rdquo;.&ldquo;rp_30d&rdquo;.&ldquo;zmlzzz&rdquo;  &ldquo;dev_id&rdquo;=&lsquo;1&rsquo; &ldquo;aa&rdquo;=&lsquo;22&rsquo; &ldquo;bb&rdquo;=&lsquo;111&rsquo; time=1690767675736</th>
+</tr>
+</thead>
+</table>
+<p><strong>delete</strong></p>
+<ul>
+<li>不支持删除tag或者field</li>
+<li>通过retency来实现数据删除</li>
+<li><code> </code>表存储策略上：默认autogen无法删除数据  只能insert覆盖</li>
+<li>非autogen策略表可以删除</li>
+<li>支持删除time段的数据</li>
+</ul>
+<p>|Plain Text<!-- raw HTML omitted --><strong>1 根据时间点  精确到ns</strong><!-- raw HTML omitted --><code>    </code>delete from &ldquo;dataAnalysis&rdquo;.&ldquo;rp_7d&rdquo;.&ldquo;carGisT&rdquo; where time=1688612365000<!-- raw HTML omitted --><strong>2 根据时间范围</strong><!-- raw HTML omitted --><code>    </code>delete from &ldquo;dataAnalysis&rdquo;.&ldquo;rp_7d&rdquo;.&ldquo;carGisT&rdquo; where time=&lsquo;2022-10-19 17:31:43.762&rsquo;  tz(&lsquo;Asia/Shanghai&rsquo;) <!-- raw HTML omitted --><code>    </code>DELETE FROM &lt;measurement_name&gt; WHERE [&lt;tag_key&gt;=&rsquo;&lt;tag_value&gt;&rsquo;] | [<!-- raw HTML omitted -->]<!-- raw HTML omitted --><!-- raw HTML omitted -->3 <strong>删除某表的指定时间范围的数据</strong><!-- raw HTML omitted --><code>    </code>delete from  &ldquo;dataAnalysis&rdquo;.&ldquo;rp_7d&rdquo;.&ldquo;carGisT&rdquo; where time&lt;&lsquo;2022-10-19 17:31:43.762Z&rsquo; <!-- raw HTML omitted --><code>    </code>And time&lt;&lsquo;2022-10-19 17:31:43.762Z  tz(&lsquo;Asia/Shanghai&rsquo;) <!-- raw HTML omitted --><!-- raw HTML omitted -->4 <strong>删除某个tag的所有记录</strong><!-- raw HTML omitted --><code>    </code>USE &ldquo;zml_test&rdquo;.&ldquo;rp_30d&rdquo;; DROP SERIES FROM &ldquo;mbb&rdquo; WHERE &ldquo;ccc&rdquo; = &lsquo;111&rsquo;<!-- raw HTML omitted --><!-- raw HTML omitted -->5 <strong>删除某个tag的时间范围内的记录(UTC)</strong><!-- raw HTML omitted --><code>    </code>USE  &ldquo;iot&rdquo;; DELETE FROM &ldquo;drive&rdquo; WHERE &ldquo;carNo&rdquo; = &lsquo;1122333222&rsquo; AND time &gt; &lsquo;2022-10-19 07:40:23&rsquo;   AND time &lt; &lsquo;2022-10-19 19:40:23&rsquo;   <!-- raw HTML omitted --><code>    </code>USE  &ldquo;dataAnalysis&rdquo;; DELETE FROM &ldquo;carGisT&rdquo; WHERE &ldquo;carNo&rdquo; = &lsquo;1122333222&rsquo; AND time= &lsquo;2022-10-19 07:40:23&rsquo;<!-- raw HTML omitted --><code>    </code>hds<!-- raw HTML omitted --><!-- raw HTML omitted -->6 <strong>删除整表</strong><!-- raw HTML omitted --><code>    </code>USE &ldquo;recloud_test&rdquo;;  drop  measurement xxx  删除整表<!-- raw HTML omitted --><code>    </code>USE &ldquo;recloud_test&rdquo;;  delete from xxx   删除的是recloud_test下所有策略的measurmentx   <!-- raw HTML omitted --><code>    </code>USE &ldquo;iot&rdquo;;  delete from car_detail|
+| :- |</p>
+<p><code>   </code>80017                                                                19s   3s</p>
+<ol>
+<li>beginTime: &ldquo;2022-10-11 00:00:00&rdquo;</li>
+<li>carNo: &ldquo;80017&rdquo;</li>
+<li>endTime: &ldquo;2022-10-12 00:00:00&rdquo;</li>
+</ol>
+<p>SELECT * FROM &ldquo;iot&rdquo;.&ldquo;rp_30d&rdquo;.&ldquo;drive&rdquo; WHERE time &gt; &lsquo;2022-10-11T00:00:00Z&rsquo; AND time &lt; &lsquo;2022-10-12T00:00:00Z&rsquo; AND &ldquo;carNo&rdquo;=&lsquo;80017&rsquo;</p>
+<p>SELECT * FROM &ldquo;iot&rdquo;.&ldquo;rp_30d&rdquo;.&ldquo;drive&rdquo; WHERE time &gt; &lsquo;2022-10-11 00:00:00&rsquo; AND time &lt; &lsquo;2022-10-12 00:00:00&rsquo; AND &ldquo;carNo&rdquo;=&lsquo;80017&rsquo;</p>
+<p>SELECT count(*) FROM &ldquo;iot&rdquo;.&ldquo;rp_30d&rdquo;.&ldquo;drive&rdquo; where time &gt; &lsquo;2022-10-11T00:00:00Z&rsquo; AND time &lt; &lsquo;2022-10-11T00:00:01Z&rsquo; AND &ldquo;carNo&rdquo;=&lsquo;80017&rsquo;</p>
+<p>时差问题</p>
+<p>chronograf查询&mdash;-勾选local&mdash;&ndash;时间要减少8h</p>
+<p>对应mysql   SELECT count(*) FROM &ldquo;dataAnalysis&rdquo;.&ldquo;autogen&rdquo;.&ldquo;carGis&rdquo;</p>
+<p>SELECT count(*) FROM &ldquo;dataAnalysis&rdquo;.&ldquo;autogen&rdquo;.&ldquo;carGis&rdquo; where time&gt;&lsquo;2022-09-22 12:00:00&rsquo;  and  time&lt;&lsquo;2022-09-23 00:00:00&rsquo;  tz(&lsquo;Asia/Shanghai&rsquo;)</p>
+<p>联表查询</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Rust<!-- raw HTML omitted --><!-- raw HTML omitted -->SELECT &ldquo;height&rdquo;, &ldquo;latitude&rdquo; FROM &ldquo;iot&rdquo;.&ldquo;rp_30d&rdquo;.&ldquo;drive&rdquo; WHERE time &gt; :dashboardTime: AND time &lt; :upperDashboardTime: AND &ldquo;carNo&rdquo;=&lsquo;14001&rsquo;<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->SELECT * FROM &ldquo;iot&rdquo;.&ldquo;rp_30d&rdquo;.&ldquo;drive&rdquo;，&ldquo;iot&rdquo;.&ldquo;rp_30d&rdquo;.&ldquo;gns&rdquo; WHERE time &gt; :dashboardTime: AND time &lt; :upperDashboardTime: AND &ldquo;carNo&rdquo;=&lsquo;14001&rsquo;</th>
+</tr>
+</thead>
+</table>
+<p>查询某段时间范围内的距今最近的1条</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Rust<!-- raw HTML omitted -->select * from recloud_test.rp_30d.iot_carinfo_flat where time &gt; &lsquo;2023-06-26 20:00:20&rsquo; AND time &lt; &lsquo;2023-06-26 20:00:21&rsquo; And &quot;carNo&quot;=&lsquo;14003&rsquo; ORDER BY time Desc LIMIT 1 tz(&lsquo;Asia/Shanghai&rsquo;) <!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->select * from recloud_test.rp_30d.car_detail where time &gt; &lsquo;2023-06-25 20:00:20&rsquo; AND time &lt; &lsquo;2023-06-26 23:00:21&rsquo;  ORDER BY time Desc LIMIT 1 tz(&lsquo;Asia/Shanghai&rsquo;)</th>
+</tr>
+</thead>
+</table>
+<p>查询 某字段不为空</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Rust<!-- raw HTML omitted -->select * from recloud_test.rp_30d.iot_carinfo_flat where And &quot;carNo&quot;=&lsquo;14003&rsquo; ORDER BY time Desc LIMIT 1 tz(&lsquo;Asia/Shanghai&rsquo;)</th>
+</tr>
+</thead>
+</table>
+
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=%2fpost%2finfluxdb%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=%2fpost%2finfluxdb%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=%2fpost%2finfluxdb%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=%2fpost%2finfluxdb%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=%2fpost%2finfluxdb%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=%2fpost%2finfluxdb%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="/post/%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="/post/%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/">基于hugo搭建blog</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+  
+  
+  
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'Your Disqus shortname';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="js/ui.js"></script>
+<script src="js/menus.js"></script>
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=Your%20Google%20Analytics%20tracking%20ID"></script>
+<script>
+  
+  if (window.location.hostname != "localhost") {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'Your Google Analytics tracking ID');
+  }
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>
+

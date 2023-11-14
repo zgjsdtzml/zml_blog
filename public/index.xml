@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>个人博客</title>
+    <link>/</link>
+    <description>Recent content on 个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2023. All rights reserved.</copyright>
+    <lastBuildDate>Mon, 13 Nov 2023 16:29:02 +0000</lastBuildDate>
+    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>influxdb介绍</title>
+      <link>/post/influxdb/</link>
+      <pubDate>Mon, 13 Nov 2023 16:29:02 +0000</pubDate>
+      <guid>/post/influxdb/</guid>
+      <description>Step 1. 准备条件 git下载
+hugo下载
+go写的
+官方有OSS单机开源版(官方不支持集群) 。
+InfluxDB 1.8.x稳定版本
+InfluxDB 2.0 正式版本，该版本又分为两个系列，云模式的 InfluxDB Cloud 和独立部署的 InfluxDB OSS
+集群版闭源，走商业路线
+主流版本有1.X 和 2.X 1.X以1.8为主流（https://developer.aliyun.com/article/1265960）
+2.x的区别
+1整合了TICK 四个组件，分别对应Telegraf数据采集，InfluxDB数据存储，Chronograf WebUI数据可视化，Kapacitor 告警
+权限增强，支持token读写数据
+增加查询语言 Flux语法
+场景：适合 海量时许数据的插入和查询的场景（ 注意：删除和更新 支持很少）
+数据分析，IoT设备数据采集，监控告警
+性能参考
+influxdb版本 1.8.10
+本身机器硬件参数（32G内存 16核CPU标准版）
+数据量、网络带宽
+mearsurement个数、field个数、tag个数
+举例来说，基本的服务器配置 32G内存 16核，支持每s几W的写入 没什么问题，正常的查询在1-20ms之内
+Plain Text网上测试参考 8G内存 2核cpu 最大的吞吐量为每秒写入60万条数据（3个字段，1个索引） 读取性能 2ms/条环卫云项目参考 32G 16核cpu 1000Mbps的带宽 平均吃 8G内存 600% cpu 插入 每秒写入 2-3K条数据（50个字段、2-3个索引） retention policy：数据存储策略（默认策略为autogen）InfluxDB没有删除数据操作，规定数据的保留时间达到清除数据的目的； 底层时间戳为纳秒， 存储用的是utc时间戳（自1970年1月1日起的相对时间戳） 支持通过 tz（Asia/China）转化成对应时区的时间 https://jasper-zhang1.</description>
+    </item>
+    <item>
+      <title>基于hugo搭建blog</title>
+      <link>/post/%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Mon, 13 Nov 2023 16:29:02 +0000</pubDate>
+      <guid>/post/%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/</guid>
+      <description>Step 1. 准备条件 git下载 hugo下载 Step 2. 搭建过程 环境准备
+下载hugo window版本 配置环境变量到Path 创建hugo项目 （zml_blog）
+hugo new site zml_blog cd zml_blog git init git拉取某个选定的theme皮肤
+这里选定blackburn（参考博客和UI） git submodule add git@github.com:yoshiharuyamashita/blackburn.git themes/blackburn theme文件复制并替换
+除了git.ignore外把D:\2 work software\hugo\my_blog\zml_blog\themes\blackburn下文件复制到根目录 zml_blog下并替换 复制theme的配置文件
+把config文件 D:\2 work software\hugo\my_blog\zml_blog\themes\blackburn\exampleSite内容复制到D:\2 work software\hugo\my_blog\zml_blog\content下 注意最终生效的配置文件为hugo.toml
+复制theme配置页面
+把page文件D:\2 work software\hugo\my_blog\zml_blog\themes\blackburn\exampleSite\content内容复制到toml.config 重新运行
+hugo server 编译生成public并上传到git
+D:\2 work software\hugo\my_blog\zml_blog\public下文件复制到D:\2 work software\hugo\my_blog\git_pages\zgjsdtzml.github.io下git add.git commit -m &amp;#39;xxx&amp;#39;git push add/update博客文章</description>
+    </item>
+    <item>
+      <title>Creating a New Theme</title>
+      <link>/post/creating-a-new-theme/</link>
+      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate>
+      <guid>/post/creating-a-new-theme/</guid>
+      <description>Introduction This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&amp;rsquo;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&amp;rsquo;t cover using CSS to style your theme.
+We&amp;rsquo;ll start with creating a new site with a very basic template.</description>
+    </item>
+    <item>
+      <title>Migrate to Hugo from Jekyll</title>
+      <link>/post/migrate-from-jekyll/</link>
+      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
+      <guid>/post/migrate-from-jekyll/</guid>
+      <description>Move static content to static Jekyll has a rule that any directory not starting with _ will be copied as-is to the _site output. Hugo keeps all static content under static. You should therefore move it all there. With Jekyll, something that looked like
+▾ &amp;lt;root&amp;gt;/▾ images/logo.pngshould become
+▾ &amp;lt;root&amp;gt;/▾ static/▾ images/logo.pngAdditionally, you&amp;rsquo;ll want any files that should reside at the root (such as CNAME) to be moved to static.</description>
+    </item>
+    <item>
+      <title>关于</title>
+      <link>/about/</link>
+      <pubDate>Sun, 09 Apr 2023 00:00:00 +0000</pubDate>
+      <guid>/about/</guid>
+      <description>斜杠coder的自留地 GitHub.
+喜欢开源、记录生活和成长、不定期更新如下内容:
+代码coding
+历史、文学、经济、社会、宗教等探索
+运动分享（包括不限于爬山和马拉松）</description>
+    </item>
+    <item>
+      <title>Contact</title>
+      <link>/contact/</link>
+      <pubDate>Wed, 09 Apr 2014 00:00:00 +0000</pubDate>
+      <guid>/contact/</guid>
+      <description> &amp;lt;div class=&amp;quot;pure-u-1 pure-u-md-1-3&amp;quot;&amp;gt;&amp;lt;label for=&amp;quot;last-name&amp;quot;&amp;gt;Last Name&amp;lt;/label&amp;gt;&amp;lt;input id=&amp;quot;last-name&amp;quot; class=&amp;quot;pure-u-23-24&amp;quot; type=&amp;quot;text&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;pure-u-1 pure-u-md-1-3&amp;quot;&amp;gt;&amp;lt;label for=&amp;quot;email&amp;quot;&amp;gt;E-Mail&amp;lt;/label&amp;gt;&amp;lt;input id=&amp;quot;email&amp;quot; class=&amp;quot;pure-u-23-24&amp;quot; type=&amp;quot;email&amp;quot; required&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;pure-u-1 pure-u-md-1-3&amp;quot;&amp;gt;&amp;lt;label for=&amp;quot;city&amp;quot;&amp;gt;City&amp;lt;/label&amp;gt;&amp;lt;input id=&amp;quot;city&amp;quot; class=&amp;quot;pure-u-23-24&amp;quot; type=&amp;quot;text&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div class=&amp;quot;pure-u-1 pure-u-md-1-3&amp;quot;&amp;gt;&amp;lt;label for=&amp;quot;state&amp;quot;&amp;gt;State&amp;lt;/label&amp;gt;&amp;lt;select id=&amp;quot;state&amp;quot; class=&amp;quot;pure-input-1-2&amp;quot;&amp;gt;&amp;lt;option&amp;gt;AL&amp;lt;/option&amp;gt;&amp;lt;option&amp;gt;CA&amp;lt;/option&amp;gt;&amp;lt;option&amp;gt;IL&amp;lt;/option&amp;gt;&amp;lt;/select&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;fieldset class=&amp;quot;pure-group&amp;quot;&amp;gt;&amp;lt;input type=&amp;quot;text&amp;quot; class=&amp;quot;pure-input-1-2&amp;quot; placeholder=&amp;quot;A title&amp;quot;&amp;gt;&amp;lt;textarea class=&amp;quot;pure-input-1-2&amp;quot; placeholder=&amp;quot;Your message&amp;quot;&amp;gt;&amp;lt;/textarea&amp;gt;&amp;lt;/fieldset&amp;gt;&amp;lt;button type=&amp;quot;submit&amp;quot; class=&amp;quot;pure-button pure-button-primary&amp;quot;&amp;gt;Send&amp;lt;/button&amp;gt;</description>
+    </item>
+    <item>
+      <title>(Hu)go Template Primer</title>
+      <link>/post/goisforlovers/</link>
+      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
+      <guid>/post/goisforlovers/</guid>
+      <description>Hugo uses the excellent go html/template library for its template engine. It is an extremely lightweight engine that provides a very small amount of logic. In our experience that it is just the right amount of logic to be able to create a good static website. If you have used other template systems from different languages or frameworks you will find a lot of similarities in go templates.
+This document is a brief primer on using go templates.</description>
+    </item>
+    <item>
+      <title>Getting Started with Hugo</title>
+      <link>/post/hugoisforlovers/</link>
+      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
+      <guid>/post/hugoisforlovers/</guid>
+      <description>Step 1. Install Hugo Goto hugo releases and download the appropriate version for your os and architecture.
+Save it somewhere specific as we will be using it in the next step.
+More complete instructions are available at installing hugo
+Step 2. Build the Docs Hugo has its own example site which happens to also be the documentation site you are reading right now.
+Follow the following steps:
+Clone the hugo repository Go into the repo Run hugo in server mode and build the docs Open your browser to http://localhost:1313 Corresponding pseudo commands:</description>
+    </item>
+  </channel>
+</rss>
