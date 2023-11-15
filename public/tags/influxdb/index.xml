@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>influxdb on 个人博客</title>
+    <link>/tags/influxdb/</link>
+    <description>Recent content in influxdb on 个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2023. All rights reserved.</copyright>
+    <lastBuildDate>Tue, 14 Nov 2023 16:00:02 +0000</lastBuildDate>
+    <atom:link href="/tags/influxdb/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>influxdb介绍</title>
+      <link>/post/influxdb/</link>
+      <pubDate>Tue, 14 Nov 2023 16:00:02 +0000</pubDate>
+      <guid>/post/influxdb/</guid>
+      <description>1. 介绍 git下载、hugo下载
+go写的，场景：适合 海量时许数据的插入和查询的场景（ 注意：删除和更新 支持很少）
+监控告警 iot物联网设备数据采集 官方有OSS单机开源版、官方集群版闭源收费，走商业路线。
+主流版本有1.X 和 2.X 1.X以1.8为主流
+InfluxDB 2.0 正式版本，该版本又分为两个系列，云模式的 InfluxDB Cloud 和独立部署的 InfluxDB OSS
+2.x的区别
+1整合了TICK 四个组件，分别对应Telegraf数据采集，InfluxDB数据存储，Chronograf WebUI数据可视化，Kapacitor 告警
+权限增强，支持token读写数据
+增加查询语言 Flux语法
+性能
+影响因素 本身机器硬件参数（32G内存 16核CPU标准版） 数据量、网络带宽 influxdb版本 1.8.10、mearsurement个数、field个数、tag个数 举例来说，基本的服务器配置 32G内存 16核，支持每s几W的写入 没什么问题，正常的查询在1-20ms之内
+网上测试参考8G内存 2核cpu 最大的吞吐量为每秒写入60万条数据（3个字段，1个索引） 读取性能 2ms/条环卫云项目参考 32G 16核cpu 1000Mbps的带宽平均吃 8G内存 600% cpu 每秒写入 2-3K条数据（50个字段、2-3个索引） 功能性
+HTTP协议的API 通过数据库本身的聚合函数 retention policy：数据存储策略（默认策略为autogen）InfluxDB没有删除数据操作，规定数据的保留时间达到清除数据的目的 底层时间戳为纳秒， 存储用的是utc时间戳（自1970年1月1日起的相对时间戳），支持通过 tz（Asia/China）转化成对应时区的时间 横向对比
+在时序数据库出现之前，存储时序数据这项领域一直被 MongoDB 所占据，在数据量不够高的情况下，InfluxDB 并不会比 MongoDB 或者 ElasticSearch 有更明显的优势 MySQL、Oracle 等，优点是具有 ACID 的特性，各方面能力都比较均衡。缺点是查询、插入和修改的性能都很一般。 基于 PostgreSQL 的 TimeScaleDB 高性能写入、高性能查询、低存储成本、支持海量时间线、弹性 纵向对比</description>
+    </item>
+  </channel>
+</rss>

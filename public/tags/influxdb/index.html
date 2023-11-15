@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.120.4">
 
-  <title>个人博客</title>
+  <title>influxdb &middot; 个人博客</title>
 
     
 
@@ -44,7 +44,7 @@
  
   
   <link rel="alternate" type="application/rss+xml" title="个人博客"
-    href='/index.xml' />
+    href='/tags/influxdb/index.xml' />
   
 
   
@@ -111,7 +111,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href='/index.xml'><i
+      <a class="pure-menu-link" href='/tags/influxdb/index.xml'><i
           class="fas fa-rss fa-fw"></i>RSS</a>
     </li>
     
@@ -211,8 +211,7 @@
 
 
 <div class="header">
-  <h1>个人博客</h1>
-  <h2>开源改变世界</h2>
+  <h1>influxdb</h1>
 </div>
 
 <div class="content">
@@ -273,237 +272,6 @@ HTTP协议的API 通过数据库本身的聚合函数 retention policy：数据�
 </article>
 
   
-    <article>
-  <header>
-    <h2><a href="/post/blog%E6%90%AD%E5%BB%BA/">基于hugo搭建blog</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>13 Nov 2023, 16:29</time>
-  </div>
-
-  
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="tags/hugo">hugo</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  Step 1. 准备条件 git下载 hugo下载 Step 2. 搭建过程 环境准备
-下载hugo window版本 配置环境变量到Path 创建hugo项目 （zml_blog）
-hugo new site zml_blog cd zml_blog git init git拉取某个选定的theme皮肤
-这里选定blackburn（参考博客和UI） git submodule add git@github.com:yoshiharuyamashita/blackburn.git themes/blackburn theme文件复制并替换
-除了git.ignore外把D:\2 work software\hugo\my_blog\zml_blog\themes\blackburn下文件复制到根目录 zml_blog下并替换 复制theme的配置文件
-把config文件 D:\2 work software\hugo\my_blog\zml_blog\themes\blackburn\exampleSite内容复制到D:\2 work software\hugo\my_blog\zml_blog\content下 注意最终生效的配置文件为hugo.toml
-复制theme配置页面
-把page文件D:\2 work software\hugo\my_blog\zml_blog\themes\blackburn\exampleSite\content内容复制到toml.config 重新运行
-hugo server 编译生成public并上传到git
-D:\2 work software\hugo\my_blog\zml_blog\public下文件复制到D:\2 work software\hugo\my_blog\git_pages\zgjsdtzml.github.io下git add.git commit -m &#39;xxx&#39;git push add/update博客文章
-  </p>
-
-  
-  <footer>
-    <a href="/post/blog%E6%90%AD%E5%BB%BA/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="/post/creating-a-new-theme/">Creating a New Theme</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>28 Sep 2014, 00:00</time>
-  </div>
-
-  
-
-  
-
-  
-
-</div>
-
-  </header>
-
-  <p>
-  Introduction This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&rsquo;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&rsquo;t cover using CSS to style your theme.
-We&rsquo;ll start with creating a new site with a very basic template.
-  </p>
-
-  
-  <footer>
-    <a href="/post/creating-a-new-theme/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="/post/migrate-from-jekyll/">Migrate to Hugo from Jekyll</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>10 Mar 2014, 00:00</time>
-  </div>
-
-  
-
-  
-
-  
-
-</div>
-
-  </header>
-
-  <p>
-  Move static content to static Jekyll has a rule that any directory not starting with _ will be copied as-is to the _site output. Hugo keeps all static content under static. You should therefore move it all there. With Jekyll, something that looked like
-▾ &lt;root&gt;/▾ images/logo.pngshould become
-▾ &lt;root&gt;/▾ static/▾ images/logo.pngAdditionally, you&rsquo;ll want any files that should reside at the root (such as CNAME) to be moved to static.
-  </p>
-
-  
-  <footer>
-    <a href="/post/migrate-from-jekyll/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="/post/goisforlovers/">(Hu)go Template Primer</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>02 Apr 2014, 00:00</time>
-  </div>
-
-  
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="tags/go">go</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="tags/golang">golang</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="tags/templates">templates</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="tags/themes">themes</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="tags/development">development</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  Hugo uses the excellent go html/template library for its template engine. It is an extremely lightweight engine that provides a very small amount of logic. In our experience that it is just the right amount of logic to be able to create a good static website. If you have used other template systems from different languages or frameworks you will find a lot of similarities in go templates.
-This document is a brief primer on using go templates.
-  </p>
-
-  
-  <footer>
-    <a href="/post/goisforlovers/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="/post/hugoisforlovers/">Getting Started with Hugo</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>02 Apr 2014, 00:00</time>
-  </div>
-
-  
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="tags/go">go</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="tags/golang">golang</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="tags/hugo">hugo</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="tags/development">development</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  Step 1. Install Hugo Goto hugo releases and download the appropriate version for your os and architecture.
-Save it somewhere specific as we will be using it in the next step.
-More complete instructions are available at installing hugo
-Step 2. Build the Docs Hugo has its own example site which happens to also be the documentation site you are reading right now.
-Follow the following steps:
-Clone the hugo repository Go into the repo Run hugo in server mode and build the docs Open your browser to http://localhost:1313 Corresponding pseudo commands:
-  </p>
-
-  
-  <footer>
-    <a href="/post/hugoisforlovers/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-
-  
-
-
 </div>
 
 </div>
@@ -536,4 +304,3 @@ Clone the hugo repository Go into the repo Run hugo in server mode and build the
 
 </body>
 </html>
-

@@ -1,5 +1,12 @@
 ---
+date: 2023-11-14 16:00:02
+linktitle: influxdb介绍
 
+title: influxdb介绍
+weight: 10
+tags : [
+    "influxdb",
+]
 ---
 
 ## 1. 介绍

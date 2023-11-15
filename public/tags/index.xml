@@ -7,8 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; 2023. All rights reserved.</copyright>
-    <lastBuildDate>Mon, 13 Nov 2023 16:29:02 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 14 Nov 2023 16:00:02 +0000</lastBuildDate>
     <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>influxdb</title>
+      <link>/tags/influxdb/</link>
+      <pubDate>Tue, 14 Nov 2023 16:00:02 +0000</pubDate>
+      <guid>/tags/influxdb/</guid>
+      <description></description>
+    </item>
     <item>
       <title>hugo</title>
       <link>/tags/hugo/</link>
